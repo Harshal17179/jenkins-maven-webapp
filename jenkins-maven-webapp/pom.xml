@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- 
+        ============================================
+        POM (Project Object Model) - Maven Configuration File
+        ============================================
+        
+        The POM is the fundamental unit of work in Maven. It is an XML file
+        that contains information about the project and configuration details
+        used by Maven to build the project.
+    -->
+    
+    <!-- Model Version: Specifies which version of the POM model to use -->
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- 
+        ============================================
+        PROJECT IDENTIFICATION (Coordinates)
+        ============================================
+        These three elements uniquely identify a project in Maven's repository
+    -->
+    
+    <!-- Group ID: Usually represents the organization/company (reverse domain name) -->
+    <groupId>com.example</groupId>
+    
+    <!-- Artifact ID: The name of the project/jar without version -->
+    <artifactId>maven-sample-project</artifactId>
+    
+    <!-- Version: The version of the project (SNAPSHOT indicates development version) -->
+    <version>2.0.0-SNAPSHOT</version>
+    
+    <!-- Packaging: The type of artifact to produce (jar, war, pom, etc.) -->
+    <packaging>jar</packaging>
+    
+    <!-- 
+        ============================================
+        PROJECT INFORMATION
+        ============================================
+    -->
+    <name>Maven Sample Project</name>
+    <description>
+        A sample Maven project to demonstrate POM concepts and Maven functionality.
+        This project is designed for educational purposes to teach Maven and POM basics.
+    </description>
+    
+    <!-- 
+        ============================================
+        PROPERTIES
+        ============================================
+        Properties can be used to avoid repetition and make configuration easier.
+        They can be referenced using ${property.name}
+    -->
+    <properties>
+        <!-- Java Version -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- Dependency Versions (centralized for easy management) -->
+        <junit.version>5.9.2</junit.version>
+        <slf4j.version>2.0.7</slf4j.version>
+        <logback.version>1.4.8</logback.version>
+    </properties>
+    
+    <!-- 
+        ============================================
+        DEPENDENCIES
+        ============================================
+        Dependencies are external libraries that your project needs.
+        Maven automatically downloads them from repositories.
+    -->
+    <dependencies>
+        
+        <!-- 
+            JUnit 5 - Testing Framework
+            Scope: test - Only available during test compilation and execution
+        -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- 
+            SLF4J - Logging Facade
+            Scope: compile (default) - Available in all classpaths
+        -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        
+        <!-- 
+            Logback - Logging Implementation
+            Scope: compile (default)
+        -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        
+        <!-- 
+            Apache Commons Lang - Utility Library
+            Demonstrates a commonly used library
+        -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        
+    </dependencies>
+    
+    <!-- 
+        ============================================
+        BUILD CONFIGURATION
+        ============================================
+        Configures how Maven builds the project
+    -->
+    <build>
+        
+        <!-- 
+            Plugins: Extend Maven's functionality
+            Plugins are executed during the build lifecycle
+        -->
+        <plugins>
+            
+            <!-- 
+                Maven Compiler Plugin
+                Compiles Java source code
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            
+            <!-- 
+                Maven Surefire Plugin
+                Runs unit tests during the test phase
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+            
+            <!-- 
+                Maven JAR Plugin
+                Creates the JAR file
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- Main class to run when executing the JAR -->
+                            <mainClass>com.example.mavendemo.MavenDemoApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+            <!-- 
+                Maven Exec Plugin
+                Allows running Java applications directly without packaging
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>com.example.mavendemo.MavenDemoApp</mainClass>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+        
+    </build>
+    
+    <!-- 
+        ============================================
+        REPOSITORIES (Optional)
+        ============================================
+        Maven Central is used by default, but you can add custom repositories
+    -->
+    <!--
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Central Repository</name>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+    -->
+    
+</project>

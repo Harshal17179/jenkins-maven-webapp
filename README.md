@@ -1,0 +1,1 @@
+This project is designed to teach Maven and POM (Project Object Model) concepts to students.
